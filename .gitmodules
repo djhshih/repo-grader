@@ -1,0 +1,3 @@
+[submodule "commit"]
+	path = commit
+	url = git@github.com:djhshih/commit-grader
