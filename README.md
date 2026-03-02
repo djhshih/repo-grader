@@ -1,9 +1,17 @@
 # Repository Grader
 
-Grader (offline) for evaluating Git repositories.
-It uses grades assigned by GitHub Classroom to the repositories,
+Grader for evaluating Git repositories.
+It uses prediction scores assigned by GitHub Classroom to the repositories,
 adding similarity checks using [Dolos][dolos], as well as
 commit pattern evaluations using [commit-grader][commit-grader].
+
+We assume that auto-graders on GitHub Classroom have been set up, and
+the scores can be downloaded via GitHub CLI. The repositories have
+been evaluated individually.
+
+Similarity checks require all the repositories across students, so this
+step must be done separately here.
+
 
 ## Repository Setup
 
