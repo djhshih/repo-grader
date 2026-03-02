@@ -1,9 +1,9 @@
 # Repository Grader
 
 Grader (offline) for evaluating Git repositories.
-It uses grades assigned by GitHub Classroom on the repositories,
-adding a similarity check using [Dolos][dolos], as well as
-a commit pattern evaluation using [commit-grader][commit-grader].
+It uses grades assigned by GitHub Classroom to the repositories,
+adding similarity checks using [Dolos][dolos], as well as
+commit pattern evaluations using [commit-grader][commit-grader].
 
 ## Repository Setup
 
@@ -15,6 +15,8 @@ git clone --recursive git@github.com:djhshih/repo-grader
 Edit the environmental variables in `env.sh`.
 
 Edit the scripts to evaluate in `scripts.vtr`.
+
+Edit weights in integrate.R.
 
 Install [Dolos][dolos] and [Github CLI][gh].
 

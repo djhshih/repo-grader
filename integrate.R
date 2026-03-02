@@ -1,11 +1,20 @@
 library(io)
 library(dplyr)
 
-submissions <- qread("submissions.csv");
+weights <- list(
+	commit = 20,
+	novelty = 20,
+	prediction = 60
+);
 
 staff <- c("djhshih", "HalQAQ");
 
+submissions <- qread("submissions.csv");
+
+# before release of production dataset
 prediction.total <- 20;
+
+# after release of production dataset
 #prediction.total <- 20 + 40;
 
 submissions <- mutate(submissions,
@@ -31,7 +40,7 @@ out <- select(submissions,
 
 # calculate final grade	
 out <- mutate(out,
-	grade = 20*commit + 20*novelty + 60*prediction
+	grade = weights$commit*commit + weights$novelty*novelty + weights$prediction*prediction
 );
 
 qwrite(out, "grades.tsv")
