@@ -3,9 +3,6 @@
 
 # usage: source env.sh
 
-set -euo pipefail
-IFS=$'\n\t'
-
 # dolos needs npm-18
 nvm use 18
 
