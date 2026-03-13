@@ -18,8 +18,7 @@ prediction.total <- 20;
 #prediction.total <- 20 + 40;
 
 submissions <- mutate(submissions,
-	prediction = points_awarded / prediction.total,
-	email = ifelse(github_username %in% staff, "", sprintf("%s@connect.hku.hk", roster_identifier))
+	prediction = points_awarded / prediction.total
 );
 
 novelty <- qread("novelty.csv");
@@ -33,7 +32,7 @@ commit <- data.frame(
 );
 
 out <- select(submissions,
-		email, repo=student_repository_name, prediction
+	id=roster_identifier, repo=student_repository_name, prediction
 	) |>
 	left_join(novelty, by="repo") |>
 	left_join(commit, by="repo");
