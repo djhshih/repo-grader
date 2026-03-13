@@ -11,31 +11,23 @@ staff <- c("djhshih", "HalQAQ");
 
 submissions <- qread("submissions.csv");
 
-# before release of production dataset
-prediction.total <- 20;
-
-# after release of production dataset
-#prediction.total <- 20 + 40;
-
-submissions <- mutate(submissions,
-	prediction = points_awarded / prediction.total
-);
+prediction <- qread("predict.csv");
 
 novelty <- qread("novelty.csv");
 
 repos <- qread("repos.vtr");
 commit.scores <- qread("commits.vtr");
-
 commit <- data.frame(
 	repo = repos,
 	commit = commit.scores
 );
 
 out <- select(submissions,
-	id=roster_identifier, repo=student_repository_name, prediction
+	id=roster_identifier, repo=student_repository_name
 	) |>
 	left_join(novelty, by="repo") |>
-	left_join(commit, by="repo");
+	left_join(commit, by="repo") |>
+	left_join(prediction, by="repo");
 
 # calculate final grade	
 out <- mutate(out,

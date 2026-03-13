@@ -6,8 +6,8 @@
 # dolos needs npm-18
 nvm use 18
 
-# base url for Git repos
-export GIT_URL=git@github.com:biof2014
+# URL of base repo
+export GIT_BASE_REPO=git@github.com:biof2014/snv-calling
 
 # GitHub Classroom class ID
 export CLASS_ID=953128 

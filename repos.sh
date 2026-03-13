@@ -25,12 +25,25 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
 # clone or update repo
+get_repo() {
+	rpath=$1
+	lpath=$2
+	if [[ ! -e $lpath ]]; then
+		git clone $rpath $lpath
+	else
+		( cd $lpath && git pull )
+	fi
+}
+
+git_url=${GIT_BASE_REPO%%/*}
+base_repo=${GIT_BASE_REPO##*/}
+
+# get base repo
+get_repo $GIT_BASE_REPO $out/$base_repo
+
+# get students' repos
 for repo in $(cat repos.vtr); do
 	echo $repo
-	if [[ ! -e $out/$repo ]]; then
-		git clone $GIT_URL/$repo $out/$repo
-	else
-		( cd $out/$repo && git pull )
-	fi
+	get_repo $git_url/$repo $out/$repo
 done
 
