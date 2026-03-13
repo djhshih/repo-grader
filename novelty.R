@@ -8,7 +8,7 @@ files <- file.path("dolos", c("run-diploid", "run-somatic"), "pairs.csv");
 preprocess_data <- function(d, prefix) {
 	d$leftRepo  <- sub("/.*", "", sub(prefix, "", d$leftFilePath));
 	d$rightRepo <- sub("/.*", "", sub(prefix, "", d$rightFilePath));
-	d$totalCovered <- d$leftCovered + d$rightCovered;
+	d$total <- round(d$totalOverlap / d$similarity);
 	d
 }
 
@@ -21,10 +21,10 @@ similarity0 <- 0.5;
 d <- group_by(d, leftRepo, rightRepo) |>
 	summarize(
 		totalOverlap = sum(totalOverlap),
-		totalCovered = sum(totalCovered)
+		total = sum(total)
 	) |>
 	mutate(
-		similarity = totalOverlap / totalCovered,
+		similarity = totalOverlap / total,
 	);
 
 left <- group_by(d, leftRepo) |>
@@ -35,8 +35,12 @@ right <- group_by(d, rightRepo) |>
 	rename(repo = rightRepo) |>
 	summarize(similarity = max(similarity));
 
+combined <- full_join(left, right) |>
+	group_by(repo) |>
+	summarize(similarity = max(similarity));
+
 # calculate novelty score based on max similiaity
-out <- full_join(left, right) |>
+out <- combined |>
 	mutate(
 		novelty = 1 - pmax(0, similarity - similarity0) / (1 - similarity0)
 	) |>
