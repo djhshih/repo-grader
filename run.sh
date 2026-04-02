@@ -12,6 +12,7 @@ Rscript novelty.R
 ./commit.sh
 
 # assess prediction
+./predict.sh
 Rscript predict.R
 
 # integrate scores
