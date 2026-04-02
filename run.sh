@@ -11,6 +11,9 @@ Rscript novelty.R
 # assess commmit pattern
 ./commit.sh
 
+# assess prediction
+Rscript predict.R
+
 # integrate scores
 Rscript integrate.R
 

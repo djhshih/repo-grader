@@ -31,7 +31,7 @@ get_repo() {
 	if [[ ! -e $lpath ]]; then
 		git clone $rpath $lpath
 	else
-		( cd $lpath && git pull )
+		( cd $lpath && git stash && git pull )
 	fi
 }
 
